@@ -10,5 +10,9 @@ export class CreateUserDto {
     @ApiProperty()
     age: number;
     @ApiProperty()
-    birth_date: Date
+    birth_date: Date;
+    @ApiProperty()
+    state: string;
+    @ApiProperty()
+    city: string;
 }
