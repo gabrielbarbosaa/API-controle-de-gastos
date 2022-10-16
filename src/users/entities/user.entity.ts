@@ -12,8 +12,6 @@ export class User extends Document {
     @Prop()
     age: number;
     @Prop()
-    birth_date: Date;
-    @Prop()
     state: string;
     @Prop()
     city: string;
