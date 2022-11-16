@@ -15,6 +15,8 @@ export class User extends Document {
     state: string;
     @Prop()
     city: string;
+    @Prop()
+    birth_date: Date;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

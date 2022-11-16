@@ -13,4 +13,6 @@ export class CreateUserDto {
     state: string;
     @ApiProperty()
     city: string;
+    @ApiProperty()
+    birth_date: Date;
 }
