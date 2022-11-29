@@ -7,6 +7,7 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { SessionModule } from './session/session.module';
 import { ExpensesModule } from './expenses/expenses.module';
+import { EntriesModule } from './entries/entries.module';
 
 @Module({
   imports: [
@@ -17,7 +18,8 @@ import { ExpensesModule } from './expenses/expenses.module';
     UsersModule,
     AuthModule,
     SessionModule,
-    ExpensesModule
+    ExpensesModule,
+    EntriesModule
   ],
   controllers: [AppController],
   providers: [AppService],
