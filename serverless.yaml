@@ -9,6 +9,10 @@ plugins:
 provider:
  name: aws
  runtime: nodejs16.x
+ 
+custom:
+  optimize:
+    external: ['swagger-ui-dist']
 
 functions:
  main: # The name of the lambda function
