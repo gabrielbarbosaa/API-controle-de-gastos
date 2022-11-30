@@ -23,3 +23,7 @@ functions:
           method: any
           path: /{any+}
           cors: true
+      - http:
+          method: any
+          path: /api
+          cors: true
