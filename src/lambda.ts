@@ -7,6 +7,7 @@ import { eventContext } from 'aws-serverless-express/middleware';
 import { NestFactory } from '@nestjs/core';
 import { ExpressAdapter } from '@nestjs/platform-express';
 import { AppModule } from './app.module';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 const express = require('express');
 
@@ -23,8 +24,19 @@ async function bootstrapServer(): Promise<Server> {
     const expressApp = express();
     const nestApp = await NestFactory.create(AppModule, new ExpressAdapter(expressApp))
     nestApp.use(eventContext());
+    nestApp.enableCors();
     await nestApp.init();
+    const config = new DocumentBuilder()
+    .setTitle('Controle de gastos API')
+    .setDescription('Descrição da api')
+    .setVersion('0.0.1')
+    .build();
+
+   const document = SwaggerModule.createDocument(nestApp, config);
+
+   SwaggerModule.setup('api', nestApp, document)
     cachedServer = createServer(expressApp, undefined, binaryMimeTypes);
+
  }
  return cachedServer;
 }
