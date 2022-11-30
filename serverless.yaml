@@ -18,8 +18,8 @@ functions:
       - http:
           method: any
           path: /
-          cors: false
+          cors: true
       - http:
           method: any
           path: /{any+}
-          cors: false
+          cors: true
