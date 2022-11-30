@@ -35,13 +35,19 @@ async function bootstrapServer(): Promise<Server> {
    const document = SwaggerModule.createDocument(nestApp, config);
 
    SwaggerModule.setup('api', nestApp, document)
-    cachedServer = createServer(expressApp, undefined, binaryMimeTypes);
+   cachedServer = createServer(expressApp, undefined, binaryMimeTypes);
 
  }
  return cachedServer;
 }
 
 export const handler: Handler = async (event: any, context: Context) => {
- cachedServer = await bootstrapServer();
- return proxy(cachedServer, event, context, 'PROMISE').promise;
+
+   if (event.path === '/api') {
+      event.path = '/api/';
+   }
+   event.path = event.path.includes('swagger-ui') ? `/api${event.path}` : event.path;
+
+   cachedServer = await bootstrapServer();
+   return proxy(cachedServer, event, context, 'PROMISE').promise;
 }
