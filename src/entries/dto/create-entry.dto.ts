@@ -1,13 +1,14 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { Type } from "../entities/entry.entity";
 
 export class CreateEntryDto {
     @ApiProperty()
     name: string;
     @ApiProperty()
-    value: string;
+    value: number;
     @ApiProperty()
     description: string;
-    @ApiProperty({enum: Type})
-    type: Type
+    @ApiProperty()
+    date: Date;
+    @ApiProperty()
+    frequency: string;
 }

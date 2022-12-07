@@ -1,26 +1,37 @@
+import { Entry } from './entities/entry.entity';
 import { Injectable } from '@nestjs/common';
-import { CreateEntryDto } from './dto/create-entry.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 import { UpdateEntryDto } from './dto/update-entry.dto';
+import { CreateEntryDto } from './dto/create-entry.dto';
 
 @Injectable()
 export class EntriesService {
-  create(createEntryDto: CreateEntryDto) {
-    return 'This action adds a new entry';
+  constructor(@InjectModel(Entry.name) private entryModel: Model<Entry>){
+
+  }
+  
+  async create(createExpenseDto: CreateEntryDto) {
+    const new_expense = await new this.entryModel(createExpenseDto)
+    return new_expense.save();
   }
 
-  findAll() {
-    return `This action returns all entries`;
+  async findAll() {
+    return this.entryModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} entry`;
+  async findOne(id: string) {
+    return this.entryModel.findById(id).exec();
   }
 
-  update(id: number, updateEntryDto: UpdateEntryDto) {
-    return `This action updates a #${id} entry`;
+  async update(id: string, updateEntryDto: UpdateEntryDto) {
+    await this.entryModel.findByIdAndUpdate(id, updateEntryDto).exec();
+
+    return this.findOne(id);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} entry`;
+  async remove(id: string) {
+    const delete_entry = this.entryModel.findOneAndDelete({_id: id}).exec();
+    return (await delete_entry).remove()
   }
 }
